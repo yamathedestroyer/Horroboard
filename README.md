@@ -1,3 +1,3 @@
 # Soundboard
 
-Retards und machen ein Soundboars, der sinn erklärt sich von Selbst oder nicht?
+Wir Retards von Re:Desire erstellen ein Soundboard, der Sinn erklärt sich von selbst, oder nicht ?
