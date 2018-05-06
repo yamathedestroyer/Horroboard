@@ -22,33 +22,14 @@
             android:textColor="@color/textColorDark"
             android:textSize="30sp" />
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cardsListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="20dp"
             android:paddingBottom="32dp"
             android:paddingLeft="@dimen/cards_horizontzal_padding"
-            android:paddingRight="@dimen/cards_horizontzal_padding">
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardTop"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                card_view:cardUseCompatPadding="true"
-                android:clickable="true"
-                android:focusable="true"
-                card_view:cardCornerRadius="16dp"
-                card_view:cardBackgroundColor="@color/background_fucktard_deluxe">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?selectableItemBackground"
-                    android:onClick="playAudioTest">
-                    <!-- Card items !-->
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
+            android:paddingRight="@dimen/cards_horizontzal_padding" />
     </LinearLayout>
 </ScrollView>

@@ -4,6 +4,8 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -13,11 +15,13 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kawaiitsundere.soundboard.adapters.CardsListViewAdapter;
 import kawaiitsundere.soundboard.audiostack.MediaPlayFramework;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> audioAuthors = new ArrayList<>();
+    CardsListViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,18 @@ public class MainActivity extends AppCompatActivity {
         titleText.setTypeface(ralewayFont);
 
         datasetInit();
+
+        //set up the recyclerview
+        RecyclerView recyclerView = findViewById(R.id.cardsListView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new CardsListViewAdapter(this, audioAuthors);
+        adapter.setClickListener(new CardsListViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                playAudioTest(view);
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
