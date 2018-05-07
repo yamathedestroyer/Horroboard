@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -14,14 +15,16 @@ import kawaiitsundere.soundboard.R;
 public class CardsListViewAdapter extends RecyclerView.Adapter<CardsListViewAdapter.ViewHolder> {
 
     //Data will get passed on to the adapter by the main activity
-    private List<String> mData;
+    private List<String> mDataAuthors;
+    private List<String> mDataAudios;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     //pass the data into the constructor
-    public CardsListViewAdapter(Context context, List<String> data){
+    public CardsListViewAdapter(Context context, List<String> authordata, List<String> audiodata){
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mDataAuthors = authordata;
+        this.mDataAudios = audiodata;
     }
 
     //inflate the row layout from xml
@@ -38,24 +41,30 @@ public class CardsListViewAdapter extends RecyclerView.Adapter<CardsListViewAdap
 
         //change what happens with the initialized row items here
         holder.audioCard.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.background_fucktard_deluxe));
+        holder.audioAuthorTV.setText(mDataAuthors.get(position));
+        holder.audioNameTV.setText(mDataAudios.get(position));
     }
 
     //total number of cards that will be shown
     @Override
     public int getItemCount(){
-        return mData.size();
+        return mDataAuthors.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //Initialize row items here
         CardView audioCard;
+        TextView audioAuthorTV;
+        TextView audioNameTV;
 
         ViewHolder(View itemView){
             super(itemView);
             //find the row items from the row layout here
             audioCard = itemView.findViewById(R.id.audioCard);
-            itemView.setOnClickListener(this);
+            audioAuthorTV = itemView.findViewById(R.id.audioAuthorText);
+            audioNameTV = itemView.findViewById(R.id.audioNameText);
+            audioCard.setOnClickListener(this);
         }
 
         @Override
@@ -66,7 +75,7 @@ public class CardsListViewAdapter extends RecyclerView.Adapter<CardsListViewAdap
 
     //convenience method for getting data at the click position
     String getItem(int id){
-        return mData.get(id);
+        return mDataAuthors.get(id);
     }
 
     //allows click events to be caught

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ import kawaiitsundere.soundboard.audiostack.MediaPlayFramework;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> audioAuthors = new ArrayList<>();
+    ArrayList<String> audioNames = new ArrayList<>();
+    String[] audiolist;
+
     CardsListViewAdapter adapter;
 
     @Override
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //Custom title font
-        TextView titleText = (TextView) findViewById(R.id.titleText);
+        final TextView titleText = (TextView) findViewById(R.id.titleText);
         Typeface ralewayFont = Typeface.createFromAsset(getAssets(), "fonts/raleway_medium.ttf");
         titleText.setTypeface(ralewayFont);
 
@@ -43,11 +47,15 @@ public class MainActivity extends AppCompatActivity {
         //set up the recyclerview
         RecyclerView recyclerView = findViewById(R.id.cardsListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CardsListViewAdapter(this, audioAuthors);
+        adapter = new CardsListViewAdapter(this, audioAuthors, audioNames);
         adapter.setClickListener(new CardsListViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                playAudioTest(view);
+                MediaPlayFramework mpv = new MediaPlayFramework("audio/" + audiolist[position], MainActivity.this);
+
+                if (mpv.playback() == 0) {
+                    Log.e(this.getClass().getName(), "Playback failed");
+                }
             }
         });
         recyclerView.setAdapter(adapter);
@@ -61,26 +69,19 @@ public class MainActivity extends AppCompatActivity {
     public void datasetInit(){
         AssetManager am = getAssets();
         try {
-            String[] audiolist = am.list("audio");
+            audiolist = am.list("audio");
             String[] parts;
 
             for (int i = 0; i < audiolist.length; i++) {
                 parts = audiolist[i].split("\\.");
-                audioAuthors.add(parts[i]);
-            }
 
-            System.out.println(audioAuthors);
+                //Get the audio authors into a list
+                audioAuthors.add(parts[0]);
+                //Get the audio names into a list
+                audioNames.add(parts[1]);
+            }
         } catch (IOException e){
             System.out.println(e);
-        }
-    }
-
-    public void playAudioTest(View view){
-        // Test purposes for now
-        MediaPlayFramework mpv = new MediaPlayFramework("audio/yama.test.misc.mp3", this);
-
-        if (mpv.playback() == 0) {
-            Log.e(this.getClass().getName(), "Playback failed");
         }
     }
 }
