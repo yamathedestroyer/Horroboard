@@ -1,3 +1,3 @@
-# Soundboard
+# Horrorboard
 
-Wir Retards von Re:Desire erstellen ein Soundboard, der Sinn erklärt sich von selbst, oder nicht ?
+Dies ist das Horrorboard von CF! in Androidform
