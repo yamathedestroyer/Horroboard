@@ -1,4 +1,4 @@
-package kawaiitsundere.soundboard;
+package yamathedestroyer.horrorboard;
 
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -11,17 +11,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import kawaiitsundere.soundboard.adapters.CardsListViewAdapter;
-import kawaiitsundere.soundboard.audiostack.MediaPlayFramework;
+import yamathedestroyer.horrorboard.adapters.CardsListViewAdapter;
+import yamathedestroyer.horrorboard.audiostack.MediaPlayFramework;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> audioAuthors = new ArrayList<>();
     ArrayList<String> audioNames = new ArrayList<>();
     String[] audiolist;
 
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //set up the recyclerview
         RecyclerView recyclerView = findViewById(R.id.cardsListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CardsListViewAdapter(this, audioAuthors, audioNames);
+        adapter = new CardsListViewAdapter(this, audioNames);
         adapter.setClickListener(new CardsListViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -74,11 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = 0; i < audiolist.length; i++) {
                 parts = audiolist[i].split("\\.");
-
-                //Get the audio authors into a list
-                audioAuthors.add(parts[0]);
-                //Get the audio names into a list
-                audioNames.add(parts[1]);
+                //Get the audio names into a list / first bracket
+                audioNames.add(parts[0]);
             }
         } catch (IOException e){
             System.out.println(e);

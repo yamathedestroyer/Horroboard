@@ -1,4 +1,4 @@
-package kawaiitsundere.soundboard.audiostack
+package yamathedestroyer.horrorboard.audiostack
 
 import android.content.Context
 import android.media.MediaPlayer
